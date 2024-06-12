@@ -4,7 +4,7 @@ class Database {
     private static instance: Database;
     private static client: MongoClient;
     private static connection: Db;
-    private static uri: string = "mongodb://localhost:27017/";
+    private static uri: string = process.env.DB_URI || "mongodb://localhost:27017/";
     private static database: string = "nomadnation";
 
     static getInstance(): Database {
