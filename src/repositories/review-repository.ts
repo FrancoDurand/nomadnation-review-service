@@ -16,6 +16,7 @@ class ReviewRepository implements IRepository<IReview> {
         entity.author = new ObjectId(entity.author as string);
 
         await reviews.insertOne(entity);
+        await Database.disconnect();
         return entity;
     }
 
@@ -31,6 +32,7 @@ class ReviewRepository implements IRepository<IReview> {
             { returnDocument: "after" }
         );
 
+        await Database.disconnect();
         return result;
     }
 
@@ -52,6 +54,7 @@ class ReviewRepository implements IRepository<IReview> {
             { returnDocument: "after" }
         );
 
+        await Database.disconnect();
         return result;
     }
 
@@ -62,6 +65,7 @@ class ReviewRepository implements IRepository<IReview> {
             { _id: new ObjectId(entity._id) },
         );
 
+        await Database.disconnect();
         return result.deletedCount ? true : false;
     }
 
@@ -88,6 +92,7 @@ class ReviewRepository implements IRepository<IReview> {
             }
         }
 
+        await Database.disconnect();
         return reviewData;
     }
 
@@ -117,6 +122,7 @@ class ReviewRepository implements IRepository<IReview> {
             }
         }
 
+        await Database.disconnect();
         return reviewsData;
     }
 
@@ -147,6 +153,7 @@ class ReviewRepository implements IRepository<IReview> {
             }
         }
 
+        await Database.disconnect();
         return reviewsData;
     }
 
@@ -164,6 +171,7 @@ class ReviewRepository implements IRepository<IReview> {
                 }
             });
 
+        await Database.disconnect();
         return authorData;
     }
 }

@@ -2,8 +2,8 @@ import { Db, MongoClient } from "mongodb"
 
 class Database {
     private static instance: Database;
-    private static client: MongoClient;
-    private static connection: Db;
+    private static client: MongoClient | null = null;
+    private static connection: Db | null = null;
     private static uri: string = process.env.DB_URI || "mongodb://localhost:27017/";
     private static database: string = "nomadnation";
 
@@ -27,6 +27,21 @@ class Database {
 
         return Database.connection;
     }
+
+    static async disconnect(): Promise<void> {
+        try {
+            if (Database.client) {
+                await Database.client.close();
+                Database.client = null;
+                Database.connection = null;
+                console.log("Disconnected from MongoDB");
+            }
+        } catch (e) {
+            console.error("Error disconnecting from MongoDB:", e);
+            throw e;
+        }
+    }
+
 }
 
 export default Database;
